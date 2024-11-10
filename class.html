@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虎尾國中課表查詢</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .tab-content img {
+      width: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container text-center my-4">
+    <p>
+      <a href="https://hwjh.ylc.edu.tw/" target="_blank">虎國</a> 113-1 學期課表查詢 <span style="color:red;">(113.08.29)</span>
+      <a href="113phone.pdf" target="_blank">分機</a> |
+      <a href="indexs.html" target="_blank">座位</a> |
+      <a href="#" target="_blank">導護(未)</a> |
+      <a href="113dp.pdf" target="_blank">應變小組</a>
+    </p>
+  </div>
+
+  <div class="container">
+    <!-- Dropdown Menu for Class Schedule -->
+    <div class="dropdown text-center my-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="classDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        選擇班級課表
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="classDropdown" id="dropdownMenu">
+        <!-- Dropdown items will be dynamically added here -->
+      </ul>
+    </div>
+
+    <!-- Content Display Area -->
+    <div class="tab-content text-center" id="tabContent">
+      <!-- Default content pane -->
+      <div class="tab-pane fade show active" id="defaultContent">
+        <img src="class/113ht.png" alt="Overview Image">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const tabContent = document.getElementById('tabContent');
+
+      // List of classes and their corresponding image paths
+      const classes = [
+        { name: '七1', image: 'class/001.png' },
+        { name: '七2', image: 'class/002.png' },
+        { name: '七3', image: 'class/003.png' },
+        { name: '七4', image: 'class/004.png' },
+        { name: '八1', image: 'class/008.png' },
+        { name: '八2', image: 'class/009.png' },
+        { name: '八3', image: 'class/010.png' },
+        { name: '八4', image: 'class/011.png' },
+        { name: '九1', image: 'class/005.png' },
+        { name: '九2', image: 'class/006.png' },
+        { name: '九3', image: 'class/007.png' }
+      ];
+
+      // Dynamically add classes to the dropdown menu
+      classes.forEach((classItem, index) => {
+        // Create dropdown item
+        const item = document.createElement('li');
+        item.innerHTML = `<a class="dropdown-item" href="#" data-index="${index}">${classItem.name}</a>`;
+        dropdownMenu.appendChild(item);
+
+        // Create content pane (initially hidden)
+        const pane = document.createElement('div');
+        pane.className = 'tab-pane fade';
+        pane.id = `class${index}`;
+        pane.innerHTML = `<div class="text-center my-4"><img src="${classItem.image}" alt="${classItem.name} Image"></div>`;
+        tabContent.appendChild(pane);
+      });
+
+      // Handle dropdown item click to show the selected class schedule
+      dropdownMenu.addEventListener('click', (event) => {
+        if (event.target.matches('.dropdown-item')) {
+          const index = event.target.getAttribute('data-index');
+
+          // Hide all tab panes
+          const panes = tabContent.querySelectorAll('.tab-pane');
+          panes.forEach(pane => pane.classList.remove('show', 'active'));
+
+          // Show the selected tab pane
+          const selectedPane = document.getElementById(`class${index}`);
+          selectedPane.classList.add('show', 'active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

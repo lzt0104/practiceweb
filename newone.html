@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虎尾國中課表查詢</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .tab-content img {
+      width: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container text-center my-4">
+    <p>
+      <a href="https://hwjh.ylc.edu.tw/" target="_blank">虎國</a> 113-1 學期課表查詢 <span style="color:red;">(113.08.29)</span>
+      <a href="113phone.pdf" target="_blank">分機</a> |
+      <a href="indexs.html" target="_blank">座位</a> |
+      <a href="#" target="_blank">導護(未)</a> |
+      <a href="113dp.pdf" target="_blank">應變小組</a>
+    </p>
+  </div>
+
+  <div class="container">
+    <!-- Dropdown Menu -->
+    <div class="dropdown text-center my-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="teacherDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        選擇導師
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="teacherDropdown" id="dropdownMenu">
+        <!-- Dropdown items will be dynamically added here -->
+      </ul>
+    </div>
+
+    <!-- Content Display Area -->
+    <div class="tab-content text-center" id="tabContent">
+      <div class="tab-pane fade show active" id="overview">
+        <img src="class/113ht.png" alt="Overview Image">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const tabContent = document.getElementById('tabContent');
+
+      const teachers = [
+        { name: '83淑英', image: 'tea/t01.png' },
+        { name: '昊霖', image: 'tea/t02.png' },
+        { name: '若葳', image: 'tea/t03.png' },
+        { name: '晏柔', image: 'tea/t04.png' },
+        { name: '雪梅', image: 'tea/t05.png' },
+        { name: '俐文', image: 'tea/t06.png' },
+        { name: '73淑敏', image: 'tea/t07.png' },
+        { name: '珮真', image: 'tea/t08.png' },
+        { name: '怡伶', image: 'tea/t09.png' },
+        { name: '淑燕', image: 'tea/t10.png' },
+        { name: '怡方', image: 'tea/t11.png' },
+        { name: '春池', image: 'tea/t12.png' },
+        { name: '之敏', image: 'tea/t13.png' },
+        { name: '世賓', image: 'tea/t14.png' },
+        { name: '81淑琳', image: 'tea/t15.png' },
+        { name: '92靜芬', image: 'tea/t16.png' },
+        { name: '順閔', image: 'tea/t17.png' },
+        { name: '91永欽', image: 'tea/t18.png' },
+        { name: '迪元', image: 'tea/t19.png' },
+        { name: '93慧珊', image: 'tea/t20.png' },
+        { name: '家畇', image: 'tea/t21.png' },
+        { name: '71柔茜', image: 'tea/t22.png' },
+        { name: '82如立', image: 'tea/t23.png' },
+        { name: '雅燁', image: 'tea/t24.png' },
+        { name: '國興', image: 'tea/t25.png' },
+        { name: '佑宗', image: 'tea/t26.png' },
+        { name: '84玫芬', image: 'tea/t27.png' },
+        { name: '72麗秋', image: 'tea/t28.png' },
+        { name: '74詠明', image: 'tea/t29.png' },
+        { name: '信遠', image: 'tea/t30.png' },
+        { name: '柏叡', image: 'tea/t31.png' },
+        { name: '欣玫', image: 'tea/t32.png' },
+        { name: '威達', image: 'tea/t35.png' }
+      ];
+
+      teachers.forEach((teacher, index) => {
+        // Create dropdown item
+        const item = document.createElement('li');
+        item.innerHTML = `<a class="dropdown-item" href="#" data-index="${index}">${teacher.name}</a>`;
+        dropdownMenu.appendChild(item);
+
+        // Create content pane (initially hidden)
+        const pane = document.createElement('div');
+        pane.className = 'tab-pane fade';
+        pane.id = `teacher${index}`;
+        pane.innerHTML = `<div class="text-center my-4"><img src="${teacher.image}" alt="${teacher.name} Image"></div>`;
+        tabContent.appendChild(pane);
+      });
+
+      // Dropdown item click event
+      dropdownMenu.addEventListener('click', (event) => {
+        if (event.target.matches('.dropdown-item')) {
+          const index = event.target.getAttribute('data-index');
+
+          // Hide all tab panes
+          const panes = tabContent.querySelectorAll('.tab-pane');
+          panes.forEach(pane => pane.classList.remove('show', 'active'));
+
+          // Show the selected tab pane
+          const selectedPane = document.getElementById(`teacher${index}`);
+          selectedPane.classList.add('show', 'active');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

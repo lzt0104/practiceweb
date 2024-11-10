@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課表查詢</title>
+    <link rel="shortcut icon" href="http://myweb.kyu.edu.tw/~a0011b1374/course/time1.ico" type="image/x-icon" />
+    <meta name="description" content="雲林縣立褒忠國中師生課表查詢" />
+    <meta name="keywords" content="褒忠國中, 褒忠, 褒忠國中課表" />
+    <meta name="author" content="2017.8.27製作" />
+    <meta name="copyright" content="SLM 2017.2.17製作" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center">課表查詢</h1>
+        
+        <!-- Dropdown Menu for Selection -->
+        <div class="dropdown text-center my-4">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="scheduleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                選擇課表類型
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="scheduleDropdown">
+                <li><a class="dropdown-item" href="#" onclick="loadSchedule('class')">班級</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadSchedule('teacher')">教師</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadSchedule('room')">教室</a></li>
+            </ul>
+        </div>
+
+        <!-- Content Display Area -->
+        <div class="row" id="scheduleContent">
+            <div class="col-md-12 text-center" id="backButtonContainer" style="display: none;">
+                <button class="btn btn-secondary mb-3" onclick="goBack()">回到上一頁</button>
+            </div>
+            <div class="col-md-12">
+                <iframe src="class.html" id="contentFrame" class="w-100" style="height: 80vh; border: solid 1px gray;" title="Schedule Content"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <noscript>
+        <p class="text-center text-danger">看來您的瀏覽器不支援 JavaScript 或已被禁用。請啟用 JavaScript 或更新您的瀏覽器以獲取最佳效果。</p>
+    </noscript>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to load the appropriate schedule
+        function loadSchedule(type) {
+            const contentFrame = document.getElementById('contentFrame');
+            const backButtonContainer = document.getElementById('backButtonContainer');
+
+            // Set the iframe source based on the selected type
+            switch (type) {
+                case 'class':
+                    contentFrame.src = 'class.html';
+                    break;
+                case 'teacher':
+                    contentFrame.src = 'newone.html';
+                    break;
+                case 'room':
+                    contentFrame.src = 'room.html';
+                    break;
+            }
+
+            // Show the back button
+            backButtonContainer.style.display = 'block';
+        }
+
+        // Function to go back to the main selection page
+        function goBack() {
+            const contentFrame = document.getElementById('contentFrame');
+            const backButtonContainer = document.getElementById('backButtonContainer');
+
+            // Reset the iframe source to the welcome page
+            contentFrame.src = 'class.html';
+
+            // Hide the back button
+            backButtonContainer.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
